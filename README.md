@@ -1,90 +1,93 @@
-# 🔐 Password Cracking Labs — john the Ripper((Jtr)& NetworkWalks Tools
+# 🔐 Password Cracking Labs — John the Ripper (JTR) & NetworkWalks Tools
 
 > Week 3 | Project Modules 1 & 2
 > Source: [Networkwalks Academy](https://www.networkwalks.com)
 
-Ce dépôt contient deux labos pratiques sur le craquage de mots de passe appliqué à un fichier PDF protégé (`My Locked PDF1.pdf`), réalisés dans le cadre du cours Cybersecurity & Ethical Hacking.
+This repository contains two hands-on labs on password cracking applied to a protected PDF file (`My Locked PDF1.pdf`), completed as part of the Cybersecurity & Ethical Hacking course.
 
-L'objectif pédagogique est de comprendre :
-- La différence entre **chiffrement** (réversible) et **hachage** (fonction à sens unique).
-- Comment un hash est extrait d'un fichier protégé.
-- Comment une attaque par dictionnaire retrouve un mot de passe à partir de son hash.
-- Pourquoi un mot de passe faible est vulnérable.
-
----
-
+The learning goals are to understand:
+- The difference between **encryption** (reversible) and **hashing** (one-way function).
+- How a hash is extracted from a protected file.
+- How a dictionary attack recovers a password from its hash.
+- Why weak passwords are a security risk.
 
 ---
+
+
+
 
 ## 🧩 Module 1 — Password Cracking with John the Ripper (JTR)
 
-**Outils :** John the Ripper (JTR) + Johnny (interface graphique)
+**Tools:** John the Ripper (JTR) + Johnny (GUI front-end)
 
-### Étapes résumées
+### Summary of steps
 
-| Étape | Action |
+| Step | Action |
 |---|---|
-| 1 | Installer John the Ripper (Windows) ou utiliser la version pré-installée sous Kali Linux |
-| 2 | Installer Johnny (GUI) — facultatif sous Kali |
-| 3 | Extraire le hash du PDF : <br>• **Windows** → via [onlinehashcrack.com](https://www.onlinehashcrack.com/tools-pdf-hash-extractor.php)
-| 5 | Charger le hash dans Johnny ou lancer `john hash1.txt` |
-| 6 | Démarrer l'attaque et attendre le résultat |
-| 7 | Afficher le mot de passe trouvé : `john --show hash1.txt` |
-| 8 | Ouvrir le PDF avec le mot de passe récupéré |
+| 1 | Install John the Ripper (Windows) — or use the version pre-installed on Kali Linux |
+| 2 | Install Johnny (GUI) — optional on Kali |
+| 3 | Extract the hash from the PDF: <br>• **Windows** → via [onlinehashcrack.com](https://www.onlinehashcrack.com/tools-pdf-hash-extractor.php)
+| 4 | Save the hash into `hash1.txt` (format `$pdf$4*4*128*...`) |
+| 5 | Load the hash file into Johnny, or run `john hash1.txt` |
+| 6 | Start the attack and wait for the result |
+| 7 | Display the recovered password: `john --show hash1.txt` |
+| 8 | Open the PDF using the recovered password |
 
-### ⚠️ Erreur fréquente
-Ne **jamais** ouvrir directement le fichier `.pdf` dans Johnny — il faut d'abord extraire le hash avec `pdf2john.py` (ou l'outil web) et charger uniquement le fichier `hash1.txt` contenant le hash au format `$pdf$...`.
+### ⚠️ Common mistake
+Never open the `.pdf` file directly in Johnny — the hash must first be extracted with `pdf2john.py` (or the online tool), and only the resulting `hash1.txt` file (containing a single line starting with `$pdf$...`) should be loaded.
+
+
 
 
 ## 🧩 Module 2 — Password Cracking with Networkwalks Tools
 
-**Outils :** [Hash Calculator](https://networkwalks.com/hash-calculator/) et [Password Cracker](https://networkwalks.com/password-cracker/) — 100 % en ligne, aucune installation requise.
+**Tools:** [Hash Calculator](https://networkwalks.com/hash-calculator/) and [Password Cracker](https://networkwalks.com/password-cracker/) — fully browser-based, no installation required.
 
-### Étapes résumées
+### Summary of steps
 
-| Étape | Action |
+| Step | Action |
 |---|---|
-| 1 | Télécharger `My Locked PDF1.pdf` |
-| 2 | Ouvrir le **Hash Calculator**, onglet "PDF" |
-| 3 | Téléverser le PDF → le hash `$pdf$...` est généré localement (calcul côté navigateur, aucun fichier envoyé sur un serveur) |
-| 4 | Copier le hash complet |
-| 5 | Ouvrir le **Password Cracker** |
-| 6 | Coller le hash dans le champ prévu |
-| 7 | Lancer l'attaque avec la liste intégrée (100 mots de passe) |
-| 8 | Récupérer le mot de passe affiché |
-| 9 | Ouvrir le PDF avec ce mot de passe |
+| 1 | Download `My Locked PDF1.pdf` |
+| 2 | Open the **Hash Calculator**, go to the "PDF" tab |
+| 3 | Upload the PDF → the `$pdf$...` hash is generated locally (computed in-browser, nothing is uploaded to a server) |
+| 4 | Copy the full hash |
+| 5 | Open the **Password Cracker** |
+| 6 | Paste the hash into the input field |
+| 7 | Start the attack using the built-in wordlist (100 passwords) |
+| 8 | Retrieve the displayed password |
+| 9 | Open the PDF with that password |
 
-**Résultat attendu :** `password1`
+**Expected result:** `password1`
 
-### Avantage
-Fonctionne de façon identique sous Windows, Kali Linux ou macOS, puisque tout se déroule dans le navigateur.
+### Advantage
+Works identically on Windows, Kali Linux, or macOS, since everything runs inside the browser.
 
 ---
 
-## 📊 Comparatif des deux méthodes
+## 📊 Comparing the two methods
 
-| Critère | JTR / Johnny | Networkwalks Tools |
+| Criteria | JTR / Johnny | Networkwalks Tools |
 |---|---|---|
-| Installation requise | Oui (Windows) / Non (Kali) | Non |
-| Interface | CLI ou GUI (Johnny) | Web |
-| Extraction du hash | `pdf2john.py` ou site externe | Hash Calculator (local, navigateur) |
-| Liste de mots de passe | `rockyou.txt` ou personnalisée | Liste intégrée (100 mots) ou upload `.txt` |
-| Usage pro / terrain | ✅ Outil standard de l'industrie | 🎓 Outil pédagogique |
+| Installation required | Yes (Windows) / No (Kali) | No |
+| Interface | CLI or GUI (Johnny) | Web-based |
+| Hash extraction | `pdf2john.py` or external site | Hash Calculator (local, in-browser) |
+| Wordlist | `rockyou.txt` or custom | Built-in list (100 words) or custom `.txt` upload |
+| Professional / real-world use | ✅ Industry-standard tool | 🎓 Educational tool |
 
 ---
 
-## 🔑 Notions clés
+## 🔑 Key concepts
 
-- **Hash** : empreinte unique et non réversible générée à partir d'un mot de passe. On ne "déchiffre" pas un hash, on teste des candidats jusqu'à obtenir le même hash.
-- **Attaque par dictionnaire** : teste une liste de mots de passe probables (ex: `rockyou.txt`, liste intégrée).
-- **Attaque brute-force / incremental** : teste toutes les combinaisons possibles — plus lent, mais exhaustif.
-- **Pourquoi c'est important** : un mot de passe court ou commun (`password1`, `123456`) peut être cassé en quelques secondes à minutes, ce qui justifie l'usage de mots de passe longs, complexes et uniques.
+- **Hash**: a unique, non-reversible fingerprint generated from a password. A hash isn't "decrypted" — candidate passwords are tested until one produces the same hash.
+- **Dictionary attack**: tests a list of likely passwords (e.g. `rockyou.txt`, built-in wordlist).
+- **Brute-force / incremental attack**: tests every possible combination — slower, but exhaustive.
+- **Why it matters**: a short or common password (`password1`, `123456`) can be cracked within seconds to minutes, which is why long, complex, unique passwords are essential.
 
 ---
 
-## 📚 Références
+## 📚 References
 
-- [John the Ripper — site officiel](https://www.openwall.com/john/)
+- [John the Ripper — official site](https://www.openwall.com/john/)
 - [Johnny GUI](https://openwall.info/wiki/john/johnny)
 - [Networkwalks Hash Calculator](https://networkwalks.com/hash-calculator/)
 - [Networkwalks Password Cracker](https://networkwalks.com/password-cracker/)
@@ -94,9 +97,9 @@ Fonctionne de façon identique sous Windows, Kali Linux ou macOS, puisque tout s
 
 ## ⚖️ Disclaimer
 
-Ce travail est réalisé dans un cadre **strictement pédagogique et éthique** (Ethical Hacking / CEH training), sur un fichier PDF fourni volontairement pour l'exercice. Le craquage de mots de passe sur des systèmes ou fichiers appartenant à des tiers sans autorisation explicite est illégal.
+This work is carried out strictly for **educational and ethical purposes** (Ethical Hacking / CEH training), on a PDF file voluntarily provided for the exercise. Cracking passwords on systems or files belonging to third parties without explicit authorization is illegal.
 
 ---
 
-*Formation : Cybersecurity & Ethical Hacking — Networkwalks Academy*
-*Contact : info@networkwalks.com*
+*Course: Cybersecurity & Ethical Hacking — Networkwalks Academy*
+*Contact: info@networkwalks.com*
